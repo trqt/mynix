@@ -45,11 +45,16 @@
       enable = true;
       allowPing = false;
     };
+    dhcpcd.enable = false; # do not plays well with iwd
     wireless.iwd = {
       enable = true;
       settings = {
         General = {
+          EnableNetworkConfiguration = true;
           AddressRandomization = "network";
+        };
+        Network = {
+          NameResolvingService="resolvconf";
         };
       };
     };
@@ -62,7 +67,13 @@
       require_dnssec = true;
       max_clients = 500;
       ignore_system_dns = true;
-      bootstrap_resolvers = [ 
+
+      listen_addresses = [
+        "127.0.0.1:53"
+        "[::1]:53"
+      ];
+
+      bootstrap_resolvers = [
         "9.9.9.11:53"
         "45.90.30.232:53"
       ];
@@ -95,14 +106,15 @@
       value = 1;
     }
   ];
- 
+
   security.apparmor = {
     enable = true;
     enableCache = true;
+    # add profiles and whatever
   };
   programs.firejail = {
     enable = true;
-    wrappedBinaries = { 
+    wrappedBinaries = {
       mpv = {
         executable = "${lib.getBin pkgs.mpv}/bin/mpv";
         profile = "${pkgs.firejail}/etc/firejail/mpv.profile";
@@ -126,6 +138,18 @@
     };
   };
 
+  virtualisation.containers.enable = true;
+  virtualisation = {
+    podman = {
+      enable = true;
+
+      # Create a `docker` alias for podman, to use it as a drop-in replacement
+      dockerCompat = true;
+
+      # Required for containers under podman-compose to be able to talk to each other.
+      defaultNetwork.settings.dns_enabled = true;
+    };
+  };
 
   services.udisks2.enable = true;
 
