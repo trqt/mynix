@@ -1,5 +1,3 @@
- deauthenticated from f8:08:4f:3a:1a:e3 (Reason: 4=DISASSOC_DUE_TO_INACTIVITY);;; init.el --- Emacs configuration -*- lexical-binding: t -*-
-
 ;; Performance tweaks for modern machines
 (setq gc-cons-threshold 100000000) ; 100 mb
 (setq read-process-output-max (* 1024 1024)) ; 1mb
@@ -497,7 +495,7 @@
         (t . "xdg-open %s"))) ;; xdg-open to open files
 
 (use-package telega
-  :vc (:fetcher github :repo "zevlg/telega.el")
+  :ensure nil
   :config
   (setq telega-use-tracking-for '(or unmuted mention)
         telega-completing-read-function #'completing-read

@@ -20,6 +20,7 @@
         # Optionally provide extra packages not in the configuration file.
         extraEmacsPackages = epkgs: [
           epkgs.treesit-grammars.with-all-grammars
+          epkgs.melpaPackages.telega
         ];
         #
         # Optionally override derivations.
@@ -50,6 +51,8 @@
     rust-analyzer
     # haskell
     haskell-language-server
+    # Go
+    gopls
     # python
     ruff
     python312Packages.python-lsp-server
