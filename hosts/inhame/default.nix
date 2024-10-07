@@ -63,7 +63,7 @@
   services.dnscrypt-proxy2 = {
     enable = true;
     settings = {
-      ipv6_servers = true;
+      ipv6_servers = false;
       require_dnssec = true;
       max_clients = 500;
       ignore_system_dns = true;
