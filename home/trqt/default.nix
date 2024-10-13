@@ -52,6 +52,7 @@
     qbittorrent # -enhanced
     calibre
     tor-browser
+    ghidra
 
     libqalculate
 
@@ -84,6 +85,7 @@
     XCURSOR_THEME = "Bibata-Modern-Classic";
     XCURSOR_SIZE = 14;
     _JAVA_OPTIONS = "-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel -Dswing.crossplatformlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel";
+    _JAVA_AWT_WM_NONREPARENTING=1;
   };
 
   # Nicely reload system units when changing configs
