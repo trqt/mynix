@@ -9,7 +9,12 @@
     interactiveShellInit = ''
       set fish_greeting # Disable greeting
       set -g fish_key_bindings fish_vi_key_bindings
+      ${pkgs.nix-your-shell}/bin/nix-your-shell fish | source
     '';
+    shellAbbrs = {
+        ns = "nix shell";
+        nd = "nix develop";
+    };
     shellAliases = {
       zt = "zathura";
       gdb = "gdb -q -n -x $XDG_CONFIG_HOME/gdb/init";

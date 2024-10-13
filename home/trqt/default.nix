@@ -21,15 +21,12 @@
   nixpkgs = {
     overlays = [
       inputs.emacs-overlay.overlays.default
+      inputs.nix-your-shell.overlays.default
     ];
     config = {
       #allowUnfree = true;
       #allowUnfreePredicate = (_: true);
     };
-  };
-  programs.nix-index = {
-    enable = true;
-    enableFishIntegration = true;
   };
 
   home = {

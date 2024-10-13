@@ -22,6 +22,9 @@
     emacs-overlay.url = "github:nix-community/emacs-overlay";
     emacs-overlay.inputs.nixpkgs.follows = "nixpkgs";
 
+    nix-your-shell.url = "github:MercuryTechnologies/nix-your-shell";
+    nix-your-shell.inputs.nixpkgs.follows = "nixpkgs";
+
     hardware.url = "github:nixos/nixos-hardware";
   };
 
