@@ -351,6 +351,8 @@
                   (org-level-8 . 1.1)))
     (set-face-attribute (car face) nil :font "Libertinus Serif" :weight 'medium :height (cdr face))))
 
+(use-package olivetti) ;; center text
+
 ;; Spell checking
 (use-package jinx
   :custom
