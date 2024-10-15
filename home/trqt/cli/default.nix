@@ -14,6 +14,7 @@
     shellAbbrs = {
         ns = "nix shell";
         nd = "nix develop";
+        nr = "nix run nixpkgs#";
     };
     shellAliases = {
       zt = "zathura";
