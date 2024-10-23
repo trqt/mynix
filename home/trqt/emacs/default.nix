@@ -57,5 +57,6 @@
     ruff
     python312Packages.python-lsp-server
     python312Packages.python-lsp-ruff
+    zls
   ];
 }
