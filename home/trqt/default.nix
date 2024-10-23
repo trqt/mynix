@@ -48,6 +48,7 @@
     palemoon-bin
     qbittorrent # -enhanced
     calibre
+    anki
     tor-browser
     ghidra
 
