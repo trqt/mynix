@@ -325,7 +325,8 @@
               org-pretty-entities t
               org-hide-emphasis-markers t
               org-startup-with-inline-images t
-              org-image-actual-width '(300))
+              org-image-actual-width '(300)
+              org-agenda-files '("~/docs/todo.org"))
 
 (use-package org-appear
     :hook
