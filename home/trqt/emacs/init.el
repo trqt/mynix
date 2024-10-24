@@ -555,3 +555,7 @@
   :after citar embark
   :no-require
   :config (citar-embark-mode))
+
+(use-package ledger-mode
+  :mode ("\\.dat\\'"
+         "\\.ledger\\'"))
