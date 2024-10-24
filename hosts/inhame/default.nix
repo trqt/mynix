@@ -199,7 +199,7 @@
     packages = with pkgs; [
       twemoji-color-font
       ibm-plex
-      noto-fonts-cjk
+      noto-fonts-cjk-sans
       noto-fonts-emoji
       libertinus
       material-symbols
