@@ -64,6 +64,7 @@
 
     yt-dlp
     #distrobox
+    ledger
 
     hunspellDicts.pt_BR 
     hunspellDicts.en_GB-ise
