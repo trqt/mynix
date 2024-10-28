@@ -30,7 +30,7 @@
 
   programs.command-not-found.enable = false;
 
-  # Add stuff for your user as you see fit:
+  # TODO: remove neovim, or rewrite the config using nix
   programs.neovim = {
     enable = true;
     #defaultEditor = true;
@@ -41,6 +41,11 @@
     viAlias = true;
   };
 
+  # editors battle royale
+  programs.vim.enable = true;
+  programs.helix.enable = true;
+  programs.kakoune.enable = true;
+
   programs.git.enable = true;
   programs.go = {
     enable = true;
@@ -50,7 +55,7 @@
 
   programs.eza = {
     enable = true;
-    icons = true;
+    icons = "auto";
   };
 
   programs.bat = {
