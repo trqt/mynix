@@ -185,6 +185,8 @@
       fi
     '';
   };
+  programs.command-not-found.enable = false; # get rid of the annoying error
+
   users.users.trqt = {
     isNormalUser = true;
     extraGroups = [
@@ -198,12 +200,12 @@
   fonts = {
     packages = with pkgs; [
       twemoji-color-font
-      ibm-plex
       noto-fonts-cjk-sans
       noto-fonts-emoji
       libertinus
       material-symbols
       geist-font
+      ibm-plex
       (nerdfonts.override {
         fonts = [
           "FantasqueSansMono"
