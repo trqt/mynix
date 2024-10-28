@@ -41,6 +41,8 @@
   programs.imv.enable = true;
 
   programs.librewolf.enable = true;
+  
+  programs.qutebrowser.enable = true;
 
   home.packages = with pkgs; [
     brave
