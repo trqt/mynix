@@ -72,10 +72,15 @@
     hunspellDicts.en_GB-ise
     enchant
     nuspell
+    typst
 
     doggo
     tealdeer
     aria2
+
+    wl-screenrec
+    ffmpeg
+
   ];
   home.sessionVariables = {
     LIBSEAT_BACKEND = "logind";
