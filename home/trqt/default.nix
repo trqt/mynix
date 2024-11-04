@@ -78,7 +78,7 @@
     tealdeer
     aria2
 
-    wl-screenrec
+    wf-recorder
     ffmpeg
 
   ];
