@@ -174,6 +174,7 @@
     };
   };
   environment.sessionVariables.NIXOS_OZONE_WL = "1"; # wayland
+  environment.localBinInPath = true;
 
   programs.fish.enable = true;
   programs.bash = {
