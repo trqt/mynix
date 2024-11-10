@@ -10,6 +10,13 @@
       set fish_greeting # Disable greeting
       set -g fish_key_bindings fish_vi_key_bindings
       ${pkgs.nix-your-shell}/bin/nix-your-shell fish | source
+        
+        if test -z "$DISPLAY" -a "$XDG_VTNR" = 1 
+            sway
+        end
+    end
+
+
     '';
     shellAbbrs = {
         ns = "nix shell";
@@ -75,4 +82,7 @@
 
   programs.fd.enable = true;
   programs.ripgrep.enable = true;
+
+  programs.bash.historyFile = "$XDG_STATE_HOME/bash/history";
+  programs.sagemath.dataDir = "$XDG_CONFIG_HOME/sage";
 }
