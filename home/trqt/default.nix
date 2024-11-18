@@ -36,8 +36,6 @@
   };
   programs.home-manager.enable = true;
 
-  programs.newsboat.enable = true;
-
   programs.imv.enable = true;
 
   programs.librewolf.enable = true;
@@ -78,6 +76,7 @@
     tealdeer
     aria2
     libnotify
+    newsraft
 
     wf-recorder
     ffmpeg
