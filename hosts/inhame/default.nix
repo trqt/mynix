@@ -203,10 +203,13 @@
       twemoji-color-font
       noto-fonts-cjk-sans
       noto-fonts-emoji
+      freefont_ttf
       libertinus
-      material-symbols
       geist-font
       ibm-plex
+      dejavu_fonts
+      noto-fonts
+      unifont
       (nerdfonts.override {
         fonts = [
           "FantasqueSansMono"
