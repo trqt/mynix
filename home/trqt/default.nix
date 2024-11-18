@@ -77,6 +77,7 @@
     doggo
     tealdeer
     aria2
+    libnotify
 
     wf-recorder
     ffmpeg
