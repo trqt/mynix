@@ -16,9 +16,9 @@
 
     '';
     shellAbbrs = {
-        ns = "nix shell";
-        nd = "nix develop";
-        nr = "nix run nixpkgs#";
+      ns = "nix shell";
+      nd = "nix develop";
+      nr = "nix run nixpkgs#";
     };
     shellAliases = {
       zt = "zathura";
@@ -31,7 +31,7 @@
       rm = "rm -iv";
     };
   };
-    programs.nix-your-shell.enable = true;
+  programs.nix-your-shell.enable = true;
 
   programs.command-not-found.enable = false;
 
@@ -40,8 +40,8 @@
     enable = true;
     #defaultEditor = true;
     plugins = [
-            #pkgs.vimPlugins.nvim-treesitter
-            #pkgs.vimPlugins.nvim-treesitter.withAllGrammars
+      #pkgs.vimPlugins.nvim-treesitter
+      #pkgs.vimPlugins.nvim-treesitter.withAllGrammars
     ];
     viAlias = true;
   };

@@ -38,7 +38,7 @@
   programs.imv.enable = true;
 
   programs.librewolf.enable = true;
-  
+
   programs.qutebrowser.enable = true;
 
   home.packages = with pkgs; [
@@ -65,7 +65,7 @@
     #distrobox
     ledger
 
-    hunspellDicts.pt_BR 
+    hunspellDicts.pt_BR
     hunspellDicts.en_GB-ise
     enchant
     nuspell
@@ -91,14 +91,14 @@
     XCURSOR_THEME = "Bibata-Modern-Classic";
     XCURSOR_SIZE = 14;
     _JAVA_OPTIONS = "-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel -Dswing.crossplatformlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel";
-    _JAVA_AWT_WM_NONREPARENTING=1;
+    _JAVA_AWT_WM_NONREPARENTING = 1;
 
     # xdg
-    DOT_SAGE="$XDG_CONFIG_HOME/sage";
-    PYTHON_HISTORY="$XDG_STATE_HOME/python/history";
-    CARGO_HOME="$XDG_DATA_HOME/cargo";
-    SQLITE_HISTORY="$XDG_CACHE_HOME/sqlite_history";
-    GNUPGHOME="$XDG_DATA_HOME/gnupg";
+    DOT_SAGE = "$XDG_CONFIG_HOME/sage";
+    PYTHON_HISTORY = "$XDG_STATE_HOME/python/history";
+    CARGO_HOME = "$XDG_DATA_HOME/cargo";
+    SQLITE_HISTORY = "$XDG_CACHE_HOME/sqlite_history";
+    GNUPGHOME = "$XDG_DATA_HOME/gnupg";
   };
 
   # Nicely reload system units when changing configs
