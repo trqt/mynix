@@ -57,6 +57,11 @@
     ruff
     python312Packages.python-lsp-server
     python312Packages.python-lsp-ruff
+
+    # Zig
     zls
+
+    # Typst
+    tinymist
   ];
 }

@@ -281,7 +281,7 @@
 	which-key-allow-imprecise-window-fit t
 	which-key-separator " → " ))
 
-;; Better undo
+;; Better undo(change it to undo-fu, vundo and undo-fu-session ?)
 (use-package undo-tree
   :config
   (setq undo-tree-auto-save-history nil)
@@ -509,10 +509,13 @@
         telega-open-file-function 'org-open-file
         telega-chat-show-deleted-messages-for '(not saved-messages)))
 
+(use-package typst-ts-mode
+  :vc (:url "https://codeberg.org/meow_king/typst-ts-mode"))
+
 ;; LaTeX and Scientific Writing
 (defun trqt/latex-electric-math ()
   (set (make-local-variable 'TeX-electric-math)
-                          (cons "\\(" "\\)")))
+       (cons "\\(" "\\)")))
 
 ;; THE LaTeX mode
 (use-package auctex
