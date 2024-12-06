@@ -77,6 +77,7 @@
     aria2
     libnotify
     newsraft
+    tokei
 
     wf-recorder
     ffmpeg
