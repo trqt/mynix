@@ -9,7 +9,6 @@
     interactiveShellInit = ''
       set fish_greeting # Disable greeting
       set -g fish_key_bindings fish_vi_key_bindings
-      ${pkgs.nix-your-shell}/bin/nix-your-shell fish | source
         
         if test -z "$DISPLAY" -a "$XDG_VTNR" = 1 
             sway
@@ -32,6 +31,7 @@
       rm = "rm -iv";
     };
   };
+    programs.nix-your-shell.enable = true;
 
   programs.command-not-found.enable = false;
 

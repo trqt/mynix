@@ -1,42 +1,5 @@
 {
   "nodes": {
-    "advisory-db": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1710515894,
-        "narHash": "sha256-tmQ9TMCb2jZY3jYdf53qIberkYV3dnUzdAYYK/NB+No=",
-        "owner": "rustsec",
-        "repo": "advisory-db",
-        "rev": "369d98c1b95b7b56d0859605916d7b81a7d1f1c4",
-        "type": "github"
-      },
-      "original": {
-        "owner": "rustsec",
-        "repo": "advisory-db",
-        "type": "github"
-      }
-    },
-    "crane": {
-      "inputs": {
-        "nixpkgs": [
-          "nix-your-shell",
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1710886643,
-        "narHash": "sha256-saTZuv9YeZ9COHPuj8oedGdUwJZcbQ3vyRqe7NVJMsQ=",
-        "owner": "ipetkov",
-        "repo": "crane",
-        "rev": "5bace74e9a65165c918205cf67ad3977fe79c584",
-        "type": "github"
-      },
-      "original": {
-        "owner": "ipetkov",
-        "repo": "crane",
-        "type": "github"
-      }
-    },
     "emacs-overlay": {
       "inputs": {
         "nixpkgs": [
@@ -45,11 +8,11 @@
         "nixpkgs-stable": "nixpkgs-stable"
       },
       "locked": {
-        "lastModified": 1733473330,
-        "narHash": "sha256-u+omEO2O4TaUIxOCkCBbgYC9piLN4NEiq/nYwB8hCRY=",
+        "lastModified": 1733502201,
+        "narHash": "sha256-hqNroABR/MHZwnSsNPFTsK0KtGHyIMPiGWsnAXjgaC0=",
         "owner": "nix-community",
         "repo": "emacs-overlay",
-        "rev": "e3ac055c27f9268a294c911578c7cb04c087c7ab",
+        "rev": "b5d8ba006311a92e22d93e59086f888b24a17508",
         "type": "github"
       },
       "original": {
@@ -90,29 +53,6 @@
       "original": {
         "owner": "nix-community",
         "repo": "home-manager",
-        "type": "github"
-      }
-    },
-    "nix-your-shell": {
-      "inputs": {
-        "advisory-db": "advisory-db",
-        "crane": "crane",
-        "nixpkgs": [
-          "nixpkgs"
-        ],
-        "systems": "systems"
-      },
-      "locked": {
-        "lastModified": 1727198502,
-        "narHash": "sha256-FjGjLq/4qeZz9foA7pfz1hiXvsdmbnzB3BpiTESLE1c=",
-        "owner": "MercuryTechnologies",
-        "repo": "nix-your-shell",
-        "rev": "04dc6379eab87c128f2eca3f2238f533a95604b3",
-        "type": "github"
-      },
-      "original": {
-        "owner": "MercuryTechnologies",
-        "repo": "nix-your-shell",
         "type": "github"
       }
     },
@@ -169,24 +109,8 @@
         "emacs-overlay": "emacs-overlay",
         "hardware": "hardware",
         "home-manager": "home-manager",
-        "nix-your-shell": "nix-your-shell",
         "nixpkgs": "nixpkgs",
         "nixpkgs-stable": "nixpkgs-stable_2"
-      }
-    },
-    "systems": {
-      "locked": {
-        "lastModified": 1681028828,
-        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
-        "owner": "nix-systems",
-        "repo": "default",
-        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-systems",
-        "repo": "default",
-        "type": "github"
       }
     }
   },
