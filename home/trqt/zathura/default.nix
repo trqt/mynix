@@ -9,6 +9,7 @@
     options = {
       database = "sqlite";
       zoom-center = "true";
+      selection-clipboard = "clipboard";
     };
   };
 }
