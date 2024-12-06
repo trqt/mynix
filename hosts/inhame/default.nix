@@ -209,6 +209,7 @@
       ibm-plex
       dejavu_fonts
       noto-fonts
+      fira-math
       unifont
       (nerdfonts.override {
         fonts = [
