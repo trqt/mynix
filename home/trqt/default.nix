@@ -15,6 +15,7 @@
     ./mpv
     ./password-managers
     ./zathura
+    ./sioyek
     ./emacs
   ];
 
@@ -23,7 +24,7 @@
       inputs.emacs-overlay.overlays.default
     ];
     config = {
-      #allowUnfree = true;
+      allowUnfree = true;
       #allowUnfreePredicate = (_: true);
     };
   };
@@ -50,6 +51,8 @@
     anki
     tor-browser
     ghidra
+    gimp
+    ghostty
 
     libqalculate
 
@@ -60,6 +63,7 @@
     pwvucontrol
     p7zip
     file
+    appimage-run
 
     yt-dlp
     #distrobox
@@ -84,7 +88,7 @@
   ];
   home.sessionVariables = {
     LIBSEAT_BACKEND = "logind";
-    SDL_VIDEODRIVER = "wayland";
+        #SDL_VIDEODRIVER = "wayland,x11";
     MOZ_ENABLE_WAYLAND = 1;
     #WLR_RENDERER = "vulkan";
     GOPROXY = "direct";
