@@ -69,7 +69,7 @@
   services.dnscrypt-proxy2 = {
     enable = true;
     settings = {
-      ipv6_servers = false;
+      ipv6_servers = true;
       require_dnssec = true;
       max_clients = 500;
       ignore_system_dns = true;
@@ -82,6 +82,7 @@
       bootstrap_resolvers = [
         "9.9.9.11:53"
         "45.90.30.232:53"
+        "[2620:fe::fe]:53"
       ];
 
       sources.public-resolvers = {
