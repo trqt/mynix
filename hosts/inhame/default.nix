@@ -11,6 +11,7 @@
     ./hardware-configuration.nix
   ];
 
+  nixpkgs.config.allowUnfree = true;
   nix = {
     registry = lib.mapAttrs (_: value: { flake = value; }) inputs;
     nixPath = lib.mapAttrsToList (key: value: "${key}=${value.to.path}") config.nix.registry;
@@ -168,6 +169,7 @@
     bluetooth.enable = false;
     graphics = {
       enable = true;
+      enable32Bit = true;
       # extraPackages = with pkgs; [
       #   vaapiIntel # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
       # ];
@@ -187,6 +189,9 @@
     '';
   };
   programs.command-not-found.enable = false; # get rid of the annoying error
+
+  programs.steam.enable = true;
+  programs.steam.gamescopeSession.enable = true;
 
   users.users.trqt = {
     isNormalUser = true;
