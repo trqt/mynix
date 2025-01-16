@@ -158,6 +158,7 @@
 
   services.udisks2.enable = true;
 
+  services.pulseaudio.enable = false;
   services.pipewire = {
     enable = true;
     pulse.enable = true;
@@ -165,7 +166,6 @@
 
   hardware = {
     bluetooth.enable = false;
-    pulseaudio.enable = false;
     graphics = {
       enable = true;
       # extraPackages = with pkgs; [
@@ -211,12 +211,8 @@
       noto-fonts
       fira-math
       unifont
-      (nerdfonts.override {
-        fonts = [
-          "FantasqueSansMono"
-          "JetBrainsMono"
-        ];
-      })
+      nerd-fonts.fantasque-sans-mono
+      nerd-fonts.jetbrains-mono
     ];
 
     fontconfig = {
