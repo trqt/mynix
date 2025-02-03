@@ -32,6 +32,7 @@
     };
   };
   programs.nix-your-shell.enable = true;
+  programs.nushell.enable = true;
 
   programs.command-not-found.enable = false;
 
