@@ -215,7 +215,6 @@
       ibm-plex
       dejavu_fonts
       noto-fonts
-      fira-math
       unifont
       nerd-fonts.fantasque-sans-mono
       nerd-fonts.jetbrains-mono
