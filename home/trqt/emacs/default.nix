@@ -8,7 +8,7 @@
     enable = true;
     package = (
       pkgs.emacsWithPackagesFromUsePackage {
-        package = pkgs.emacs-pgtk; # replace with pkgs.emacsPgtk, or another version if desired.
+        package = pkgs.emacs-git-pgtk; # replace with pkgs.emacsPgtk, or another version if desired.
         config = ./init.el;
         defaultInitFile = pkgs.substituteAll {
           name = "default.el";

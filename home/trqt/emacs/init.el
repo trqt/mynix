@@ -1,93 +1,100 @@
 ;; Performance tweaks for modern machines
 (setq gc-cons-threshold 100000000) ; 100 mb
-(setq read-process-output-max (* 1024 1024)) ; 1mb
+(setq read-process-output-max (* 1024 1024 4)) ; 4mb
 
 ;; Stop annoying warnings
 (setq native-comp-async-report-warnings-errors nil)
 
-;; Remove extra UI clutter by hiding the scrollbar, menubar, and toolbar.
-(menu-bar-mode -1)
-(tool-bar-mode -1)
-(scroll-bar-mode -1)
+;; Package management
+(setopt use-package-always-ensure t)
+
+(with-eval-after-load 'package
+  (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t))
+
 ;; Emoji: 😄, 🤦, 🏴, ,  ;; should render as 3 color emojis and 2 glyphs
 (defun trqt/set-fonts ()
   "Set the emoji and glyph fonts."
   (when (display-graphic-p)
-      (set-fontset-font t 'symbol "Noto Color Emoji" nil 'prepend)
-      ;; Set the font. Note: height = px * 100
-      (set-face-attribute 'default nil :font "FantasqueSansM Nerd Font" :height 130)
-      (set-face-attribute 'fixed-pitch nil :font "FantasqueSansM Nerd Font" :height 130)
+    (set-fontset-font t 'symbol "Noto Color Emoji" nil 'prepend)
+    ;; Set the font. Note: height = px * 100
+    (set-face-attribute 'default nil :font "FantasqueSansM Nerd Font" :height 130)
+    (set-face-attribute 'fixed-pitch nil :font "FantasqueSansM Nerd Font" :height 130)
 
-      ;; variable pitch font
-      (set-face-attribute 'variable-pitch nil :font "Libertinus Sans" :height 140 :weight 'normal)
-    )
-  )
+    ;; variable pitch font
+    (set-face-attribute 'variable-pitch nil :font "Libertinus Sans" :height 140 :weight 'normal)))
 
-(add-hook 'after-init-hook 'trqt/set-fonts)
-(add-hook 'server-after-make-frame-hook 'trqt/set-fonts)
+;; Emacs settings
+(use-package emacs
+  :ensure nil
+  :custom
+  (inhibit-startup-message t) ;; disables startup message
+  (initial-scratch-message "")  ;; remove *scratch* message
+  (display-line-numbers-type 'relative) ;; use relative line numbering
+  (pixel-scroll-precision-mode t) ;; nicer scrolling
+  (window-resize-pixelwise t) ;;  resize by pixels
+  (frame-resize-pixelwise t) ;; resize by pixels
+  (load-prefer-newer t) 
+  (tab-always-indent 'complete) ;; indent or auto complete
+  (backup-by-copying t) ;; copy files, don't link
+  (custom-file (expand-file-name "custom.el" user-emacs-directory)) ;; put auto-generated lisp in a separated file
 
-;; yes/no to y/n
-(defalias 'yes-or-no-p 'y-or-n-p)
+
+  :config
+  ;; yes/no to y/n
+  (defalias 'yes-or-no-p 'y-or-n-p)
+
+  ;; Treesitter config
+  (setq major-mode-remap-alist
+        '((yaml-mode . yaml-ts-mode)
+          (bash-mode . bash-ts-mode)
+          (js2-mode . js-ts-mode)
+          (typescript-mode . typescript-ts-mode)
+          (json-mode . json-ts-mode)
+          (css-mode . css-ts-mode)
+          (c-mode . c-ts-mode)
+          (c++-mode . c++-ts-mode)
+          (python-mode . python-ts-mode)))
+
+  :hook
+  (prog-mode . display-line-numbers-mode) ;; enable line numbers in programming modes
+
+  :init
+
+  (menu-bar-mode -1) ;; make it clean, remove the menu bar
+  (tool-bar-mode -1) ;; make it clean, remove the tool bar
+  (when scroll-bar-mode
+    (scroll-bar-mode -1)) ;; hide the scroll bar
+
+  (add-to-list 'default-frame-alist '(alpha-background . 90)) ;; make background transparent
+
+  ;; set fonts
+  (add-hook 'after-init-hook 'trqt/set-fonts)
+  (add-hook 'server-after-make-frame-hook 'trqt/set-fonts)
+
+  (indent-tabs-mode -1) ;; prefer spaces to tabs
+  (savehist-mode t) ;; saves command history
+  (save-place-mode t) ;; saves your place in files
+  (recentf-mode t) ;; remember recent files
+  (global-auto-revert-mode t) ;; auto reloads file when changed by external programs
+  (xterm-mouse-mode 1) ;; enable mouse in terminal
+
+  ;; lispy
+  (electric-pair-mode t) ;; auto insert closing parenthesis
+  (show-paren-mode t)) ;; auto-highlight matching parenthesis
+  
 
 ;; Add unique buffer names in the minibuffer where there are many
 ;; identical files. This is super useful if you rely on folders for
 ;; organization and have lots of files with the same name,
 ;; e.g. foo/index.ts and bar/index.ts.
-(require 'uniquify)
+;; (require 'uniquify)
 
-;; Automatically insert closing parens
-(electric-pair-mode t)
+;; (setq uniquify-buffer-name-style 'forward)
 
-;; Visualize matching parens
-(show-paren-mode 1)
-
-;; Prefer spaces to tabs
-(setq-default indent-tabs-mode nil)
-
-;; Automatically save your place in files
-(save-place-mode t)
-
-;; Save history in minibuffer to keep recent commands easily accessible
-(savehist-mode t)
-
-;; Keep track of open files
-(recentf-mode t)
-
-;; Keep files up-to-date when they change outside Emacs
-(global-auto-revert-mode t)
-
-;; Display line numbers only when in programming modes
-(setq display-line-numbers-type 'relative)
-(add-hook 'prog-mode-hook 'display-line-numbers-mode)
-
-(setq uniquify-buffer-name-style 'forward
-      window-resize-pixelwise t
-      frame-resize-pixelwise t
-      load-prefer-newer t
-      ;; indent or auto complete
-      tab-always-indent 'complete 
-      backup-by-copying t
-      ;; dont write auto-generated lisp in init.el 
-      custom-file (expand-file-name "custom.el" user-emacs-directory))
-
-;; Nicer scrolling
-(when (>= emacs-major-version 29)
-  (pixel-scroll-precision-mode 1))
-
-(or (display-graphic-p)
-    (progn
-      (xterm-mouse-mode 1)))
-
-;; Package management
-(setq package-install-upgrade-built-in 't)
-(setopt use-package-always-ensure t)
-;(unless (package-installed-p 'vc-use-package)
-;  (package-vc-install "https://github.com/slotThe/vc-use-package"))
-;(require 'vc-use-package)
-
-(with-eval-after-load 'package
-  (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t))
-
+(use-package uniquify
+  :ensure nil
+  :custom
+  (uniquify-buffer-name-style 'forward))
 
 ;; No rubbish in my home!
 (use-package no-littering
@@ -107,7 +114,6 @@
 
 
 ;; Transparency
-(add-to-list 'default-frame-alist '(alpha-background . 90)) 
 
 ;; Die DocView
 (defalias 'doc-view-mode #'doc-view-fallback-mode) ;Or fundamental-mode, ...
@@ -116,8 +122,8 @@
 (use-package golden-ratio
   :custom
   (golden-ratio-auto-scale t)
-  :init
-  (golden-ratio-mode 1))
+  :hook
+  (after-init . golden-ratio-mode))
 
 ;; Minibuffer completion is essential to your Emacs workflow and
 ;; Vertico is currently one of the best out there. There's a lot to
@@ -131,8 +137,8 @@
   (read-buffer-completion-ignore-case t)
   (read-file-name-completion-ignore-case t)
   (completion-styles '(basic substring partial-completion flex))
-  :init
-  (vertico-mode))
+  :hook
+  (after-init . vertico-mode))
 
 ;; Improve the accessibility of Emacs documentation by placing
 ;; descriptions directly in your minibuffer. Give it a try:
@@ -144,8 +150,7 @@
 
 ;; Completion package
 (use-package corfu
-  :init
-  (global-corfu-mode)
+  :defer t
   :custom
   ;;(corfu-auto t)
   (corfu-quit-no-match 'separator)
@@ -154,9 +159,11 @@
   ;; (corfu-auto-delay 0)
   ;; (corfu-auto-prefix 0)
   ;;(completion-styles '(basic))
-  )
+  :hook
+  (after-init . global-corfu-mode))
 
 (use-package cape
+  :defer t
   :init
   (add-to-list 'completion-at-point-functions #'cape-dabbrev)
   (add-to-list 'completion-at-point-functions #'cape-file)
@@ -198,9 +205,9 @@
          ("M-s l" . consult-line) ; needed by consult-line to detect isearch
          ("M-s L" . consult-line-multi) ; needed by consult-line to detect isearch
          )
-  :config
+  :custom
   ;; Narrowing lets you restrict results to certain groups of candidates
-  (setq consult-narrow-key "<"))
+  (consult-narrow-key "<"))
 
 ;; Contextual actions
 (use-package embark
@@ -227,6 +234,7 @@
 
 ;; LSP package
 (use-package eglot
+  :defer t
   :bind (("s-<mouse-1>" . eglot-find-implementation)
          ("C-c ." . eglot-code-action-quickfix)
          ("C-c ;" . eglot-code-actions))
@@ -265,8 +273,9 @@
 
 ;; Which key, make the commands more accessible
 (use-package which-key
-  :init
-  (which-key-mode 1)
+  :defer t
+  :hook
+  (after-init . which-key-mode)
   :config
   (setq which-key-side-window-location 'bottom
 	which-key-sort-order #'which-key-key-order-alpha
@@ -283,9 +292,12 @@
 
 ;; Better undo(change it to undo-fu, vundo and undo-fu-session ?)
 (use-package undo-tree
-  :config
-  (setq undo-tree-auto-save-history nil)
-  (global-undo-tree-mode 1))
+  :defer t
+  :custom
+  (undo-tree-auto-save-history nil)
+
+  :hook
+  (after-init . global-undo-tree-mode))
 
 ;; VI VI VI
 (use-package evil
@@ -295,7 +307,7 @@
   (evil-want-keybinding nil)
   (evil-want-C-u-scroll t)
   (evil-undo-system 'undo-tree)
-  :config
+  :init
   (evil-mode 1))
 
 (use-package evil-collection
@@ -308,34 +320,35 @@
   :config
   (global-evil-surround-mode 1))
 
-(use-package evil-tex
-  :after evil
-  :hook
-  (LaTeX-mode . evil-tex-mode))
-
 ;; Blazing fast navigation
-
 (use-package avy
   :demand t
   :bind (("C-c j" . avy-goto-char-timer)))
 
 
-;; Make org a bit prettier
-(setq-default org-startup-indented t
-              org-pretty-entities t
-              org-hide-emphasis-markers t
-              org-startup-with-inline-images t
-              org-image-actual-width '(300)
-              org-agenda-files '("~/docs/todo.org"))
+;; org-mode
+(use-package org
+  :ensure nil
+  :defer t
+  :custom
+  (org-startup-indented t)
+  (org-pretty-entities t)
+  (org-hide-emphasis-markers t)
+  (org-startup-with-inline-images t)
+  (org-image-actual-width '(300))
+  (org-agenda-files '("~/docs/todo.org")))
 
 (use-package org-appear
-    :hook
-    (org-mode . org-appear-mode))
+  :defer t
+  :hook
+  (org-mode . org-appear-mode))
+
 (use-package org-modern
-    :hook
-    (org-mode . global-org-modern-mode)
-    (org-mode . visual-line-mode)
-    (org-mode . variable-pitch-mode))
+  :defer t
+  :hook
+  (org-mode . global-org-modern-mode)
+  (org-mode . visual-line-mode)
+  (org-mode . variable-pitch-mode))
 
 (use-package org-faces
   :ensure nil
@@ -352,10 +365,13 @@
                   (org-level-8 . 1.1)))
     (set-face-attribute (car face) nil :font "Libertinus Serif" :weight 'medium :height (cdr face))))
 
-(use-package olivetti) ;; center text
+;; center text
+(use-package olivetti
+  :defer t) 
 
 ;; Spell checking
 (use-package jinx
+  :defer t
   :custom
   (jinx-languages "en_GB pt_BR")
   :bind (("C-c DEL" . jinx-correct)
@@ -363,6 +379,7 @@
 
 ;; Why obsidian when we have public, free and of quality software
 (use-package denote
+  :defer t
   :custom
   (denote-known-keywords '("emacs" "journal"))
   ;; This is the directory where your notes live.
@@ -381,47 +398,37 @@
 
 ;; Oh! Ma Git
 (use-package magit
+  :defer t
   :bind (("C-c g" . magit-status)))
 
 ;; Make focused windows more obvious
 (use-package breadcrumb
-  :init (breadcrumb-mode))
+  :hook
+  (after-init . breadcrumb-mode))
 
 ;; http://danmidwood.com/content/2014/11/21/animated-paredit.html
 ;; https://stackoverflow.com/a/5243421/3606440
 (use-package paredit
+  :defer t
   :hook ((emacs-lisp-mode . enable-paredit-mode)
          (lisp-mode . enable-paredit-mode)
          (ielm-mode . enable-paredit-mode)
          (lisp-interaction-mode . enable-paredit-mode)
          (scheme-mode . enable-paredit-mode)))
 
-(use-package emacs
-  :ensure nil
-  :config
-  ;; Treesitter config
-  (setq major-mode-remap-alist
-        '((yaml-mode . yaml-ts-mode)
-          (bash-mode . bash-ts-mode)
-          (js2-mode . js-ts-mode)
-          (typescript-mode . typescript-ts-mode)
-          (json-mode . json-ts-mode)
-          (css-mode . css-ts-mode)
-          (c-mode . c-ts-mode)
-          (c++-mode . c++-ts-mode)
-          (python-mode . python-ts-mode))))
-
 (use-package go-mode
+  :defer t
   :bind (:map go-mode-map
 	      ("C-c C-f" . 'gofmt))
   :hook (before-save . gofmt-before-save))
 
 (use-package markdown-mode
+  :defer t
   :hook (markdown-mode . visual-line-mode)
   :init
   (setq markdown-command "pandoc --mathml"))
 
-;; C configs
+;; C 
 (use-package c-ts-mode
   :ensure nil
   :custom
@@ -438,6 +445,7 @@
   :hook (eglot-managed-mode . flymake-ruff-load))
 
 (use-package rust-mode
+  :defer t
   :bind (:map rust-mode-map
 	      ("C-c C-r" . 'rust-run)
 	      ("C-c C-c" . 'rust-compile)
@@ -446,6 +454,7 @@
   :hook (rust-mode . prettify-symbols-mode))
 
 (use-package haskell-mode
+  :defer t
   :hook (haskell-mode . prettify-symbols-mode)
   :bind (:map haskell-mode-map
               ("C-c C-c" . haskell-compile)))
@@ -454,13 +463,18 @@
 (defun trqt/disable-corfu ()
   "Disable corfu(for company-coq)"
   (corfu-mode -1))
-(use-package proof-general)
+
+(use-package proof-general
+  :defer t)
+
 (use-package company-coq
+  :defer t
   :hook ((coq-mode . company-coq-mode)
          (coq-mode . trqt/disable-corfu)))
 
 ;; OCaml
 (use-package tuareg
+  :defer t
   :mode (("\\.ocamlinit\\'" . tuareg-mode)))
 
 ;; Matrix support
@@ -469,12 +483,14 @@
 
 ;; ;; RSS support
 (use-package elfeed
+  :defer t
   :custom
   (elfeed-db-directory
    (expand-file-name "elfeed" user-emacs-directory))
   :bind (("C-c w" . 'elfeed)))
 
 (use-package elfeed-org
+  :after elfeed
   :config
   (elfeed-org)
   :custom
@@ -482,9 +498,6 @@
    (list (concat (file-name-as-directory
               (getenv "HOME"))
                  "docs/elfeed.org"))))
-
-;; Social stuff
-(use-package tracking)
 
 ;; IRC
 
@@ -497,7 +510,10 @@
         ("\\.djvu\\'" . "xdg-open %s")
         (t . "xdg-open %s"))) ;; xdg-open to open files
 
+(use-package tracking
+  :defer t)
 (use-package telega
+  :defer t
   :ensure nil
   :config
   (setq telega-use-tracking-for '(or unmuted mention)
@@ -512,34 +528,39 @@
 (use-package typst-ts-mode
   :vc (:url "https://codeberg.org/meow_king/typst-ts-mode"))
 
-;; LaTeX and Scientific Writing
-(defun trqt/latex-electric-math ()
-  (set (make-local-variable 'TeX-electric-math)
-       (cons "\\(" "\\)")))
+;; ;; LaTeX and Scientific Writing
+;; (defun trqt/latex-electric-math ()
+;;   (set (make-local-variable 'TeX-electric-math)
+;;        (cons "\\(" "\\)")))
 
-;; THE LaTeX mode
-(use-package auctex
-  :hook
-  ((LaTeX-mode . prettify-symbols-mode)
-   (LaTeX-mode . trqt/latex-electric-math))
-  :custom 
-  (reftex-plug-into-AUCTeX t)
-  (TeX-auto-save t)
-  (TeX-fold-mode t)
-  (TeX-parse-self t)
-  ;;(setq-default TeX-master nil)         ; ask for master file
- )
+;; ;; THE LaTeX mode
+;; (use-package auctex
+;;   :hook
+;;   ((LaTeX-mode . prettify-symbols-mode)
+;;    (LaTeX-mode . trqt/latex-electric-math))
+;;   :custom 
+;;   (reftex-plug-into-AUCTeX t)
+;;   (TeX-auto-save t)
+;;   (TeX-fold-mode t)
+;;   (TeX-parse-self t)
+;;   ;;(setq-default TeX-master nil)         ; ask for master file
+;;  )
 
-;; make ` great again
-(use-package cdlatex
-  :custom
-  (cdlatex-takeover-dollar nil)
-  :hook
-  (LaTeX-mode . turn-on-cdlatex)
-  (org-mode . turn-on-org-cdlatex))
+;; ;; useful latex abbreviations with `
+;; (use-package cdlatex
+;;   :custom
+;;   (cdlatex-takeover-dollar nil)
+;;   :hook
+;;   (LaTeX-mode . turn-on-cdlatex)
+;;   (org-mode . turn-on-org-cdlatex))
+;; (use-package evil-tex
+;;   :after evil
+;;   :hook
+;;   (LaTeX-mode . evil-tex-mode))
 
 ;; Make it trivial to cite papers
 (use-package citar
+  :defer t
   :custom
   (org-cite-global-bibliography '("~/docs/references.bib"))
 
@@ -557,8 +578,10 @@
 (use-package citar-embark
   :after citar embark
   :no-require
-  :config (citar-embark-mode))
+  :init
+  (citar-embark-mode))
 
 (use-package ledger-mode
+  :defer t
   :mode ("\\.dat\\'"
          "\\.ledger\\'"))
