@@ -241,6 +241,7 @@
   :hook ((go-mode . eglot-ensure)
          (rust-mode . eglot-ensure)
          (haskell-mode . eglot-ensure)
+         ;;(clojure-mode . eglot-ensure)
          (python-ts-mode . eglot-ensure)
          (java-mode . eglot-ensure)
          (c-ts-mode . eglot-ensure)
@@ -248,28 +249,30 @@
   :custom
   (eglot-autoshutdown t)
   (eglot-confirm-server-initiated-edits nil) ;; DWIM, don't ask to change
+  (eglot-ignored-server-capabilities '(:documentOnTypeFormattingProvider))
   (eglot-events-buffer-config '(:size 20000 :format short))
   :config
-  (fset #'jsonrpc--log-event #'ignore)) ;; Perfomance boost(?)
+  (fset #'jsonrpc--log-event #'ignore))
+  ;; Perfomance boost(?)
 
 
-;; Perfomance Boost!
-;; (use-package eglot-booster
-;;   :ensure nil
-;;   :after eglot
-;;   :vc (:fetcher github :repo "jdtsmith/eglot-booster")
-;;   :config (eglot-booster-mode))
+  ;; Perfomance Boost!
+  ;; (use-package eglot-booster
+  ;;   :ensure nil
+  ;;   :after eglot
+  ;;   :vc (:fetcher github :repo "jdtsmith/eglot-booster")
+  ;;   :config (eglot-booster-mode))
 
-;; Add extra context to Emacs documentation to help make it easier to
-;; search and understand. This configuration uses the keybindings 
-;; recommended by the package author.
-(use-package helpful
-  :bind (("C-h f" . #'helpful-callable)
-         ("C-h v" . #'helpful-variable)
-         ("C-h k" . #'helpful-key)
-         ("C-c C-d" . #'helpful-at-point)
-         ("C-h F" . #'helpful-function)
-         ("C-h C" . #'helpful-command)))
+  ;; Add extra context to Emacs documentation to help make it easier to
+  ;; search and understand. This configuration uses the keybindings 
+  ;; recommended by the package author.
+  (use-package helpful
+    :bind (("C-h f" . #'helpful-callable)
+           ("C-h v" . #'helpful-variable)
+           ("C-h k" . #'helpful-key)
+           ("C-c C-d" . #'helpful-at-point)
+           ("C-h F" . #'helpful-function)
+           ("C-h C" . #'helpful-command)))
 
 ;; Which key, make the commands more accessible
 (use-package which-key
@@ -387,14 +390,27 @@
   (denote-templates '((review . "Author: \n\n* Resumo\n\n* Interpretação")))
   :config
   (require 'ox-md)
-  (require 'denote-journal-extras)
   (denote-rename-buffer-mode)
   :bind
   (("C-c n n" . denote)
    ("C-c n f" . denote-open-or-create)
    ("C-c n t" . denote-template)
    ("C-c n m" . denote-type)
-   ("C-c n i" . denote-link-or-create)))
+   ("C-c n i" . denote-link-or-create))
+   ("C-c n b" . denote-backlinks)
+   ("C-c n r" . denote-rename-file)
+   ("C-c n R" . denote-rename-file-using-front-matter))
+
+(use-package denote-journal
+  :after denote
+  :hook (calendar-mode . denote-journal-calendar-mode)
+  :config
+  (setq denote-journal-directory (expand-file-name "journal" denote-directory))
+  (setq denote-journal-keyword "journal")
+  (setq denote-journal-title-format 'day-date-month-year))
+
+(use-package denote-org
+  :after denote)
 
 ;; Oh! Ma Git
 (use-package magit
@@ -458,6 +474,13 @@
   :hook (haskell-mode . prettify-symbols-mode)
   :bind (:map haskell-mode-map
               ("C-c C-c" . haskell-compile)))
+
+;; Clojure
+(use-package clojure-mode
+  :defer t)
+
+(use-package cider
+  :defer t)
 
 ;; Coq support
 (defun trqt/disable-corfu ()
