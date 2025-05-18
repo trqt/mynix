@@ -1,0 +1,3 @@
+{
+  niri = import ./niri.nix;
+}

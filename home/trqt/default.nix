@@ -1,5 +1,6 @@
 {
   inputs,
+#outputs,
   lib,
   config,
   pkgs,
@@ -7,8 +8,12 @@
 }:
 {
   imports = [
+     inputs.self.homeManagerModules.niri
+
     ./gtk
-    ./sway
+    #./sway
+    ./waybar
+    ./niri
     ./foot
     ./xdg
     ./cli
@@ -18,7 +23,6 @@
     ./sioyek
     ./emacs
   ];
-
   nixpkgs = {
     overlays = [
       inputs.emacs-overlay.overlays.default
@@ -64,6 +68,7 @@
     p7zip
     file
     appimage-run
+    imagemagick
 
     yt-dlp
     #distrobox
@@ -88,7 +93,7 @@
   ];
   home.sessionVariables = {
     LIBSEAT_BACKEND = "logind";
-        #SDL_VIDEODRIVER = "wayland,x11";
+    #SDL_VIDEODRIVER = "wayland,x11";
     MOZ_ENABLE_WAYLAND = 1;
     #WLR_RENDERER = "vulkan";
     GOPROXY = "direct";

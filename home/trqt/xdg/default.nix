@@ -10,18 +10,20 @@
       enable = true;
       xdgOpenUsePortal = true;
       extraPortals = [
-        pkgs.xdg-desktop-portal-wlr
         pkgs.xdg-desktop-portal-gtk
+        pkgs.xdg-desktop-portal-gnome
       ];
+      configPackages = [ pkgs.niri ];
       config = {
         common = {
-          default = [ "gtk" ];
+          default = [ "gnome" ];
+           "org.freedesktop.impl.portal.FileChooser" = [ "gtk" ];
         };
-        sway = {
-          default = [ "gtk" ];
-          "org.freedesktop.impl.portal.Screencast" = [ "wlr" ];
-          "org.freedesktop.impl.portal.Screenshot" = [ "wlr" ];
-        };
+        # sway = {
+        #   default = [ "gtk" ];
+        #   "org.freedesktop.impl.portal.Screencast" = [ "wlr" ];
+        #   "org.freedesktop.impl.portal.Screenshot" = [ "wlr" ];
+        # };
       };
     };
     userDirs = {

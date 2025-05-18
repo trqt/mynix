@@ -44,7 +44,7 @@
           ];
         };
       };
-
+      homeManagerModules = import ./home/modules;
       homeConfigurations = {
         "trqt@inhame" = home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.x86_64-linux;

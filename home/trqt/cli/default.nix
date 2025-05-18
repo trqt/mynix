@@ -10,8 +10,8 @@
       set fish_greeting # Disable greeting
       set -g fish_key_bindings fish_vi_key_bindings
         
-        if test -z "$DISPLAY" -a "$XDG_VTNR" = 1 
-            sway
+        if test -z "$WAYLAND_DISPLAY" -a "$XDG_VTNR" = 1 
+            niri-session
         end
 
     '';
