@@ -216,6 +216,7 @@
       dejavu_fonts
       noto-fonts
       unifont
+      merriweather
       nerd-fonts.fantasque-sans-mono
       nerd-fonts.jetbrains-mono
     ];
