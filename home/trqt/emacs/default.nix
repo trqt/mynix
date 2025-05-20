@@ -10,11 +10,7 @@
       pkgs.emacsWithPackagesFromUsePackage {
         package = pkgs.emacs-git-pgtk; # replace with pkgs.emacsPgtk, or another version if desired.
         config = ./init.el;
-        defaultInitFile = pkgs.substituteAll {
-          name = "default.el";
-          src = ./init.el;
-          inherit (config.xdg) configHome dataHome;
-        };
+        defaultInitFile = true;
         alwaysEnsure = true;
 
         # Optionally provide extra packages not in the configuration file.
