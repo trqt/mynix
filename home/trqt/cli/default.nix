@@ -34,23 +34,52 @@
   programs.nix-your-shell.enable = true;
   programs.nushell.enable = true;
 
-  programs.command-not-found.enable = false;
-
-  # TODO: remove neovim, or rewrite the config using nix
-  programs.neovim = {
+  programs.direnv = {
     enable = true;
-    #defaultEditor = true;
-    plugins = [
-      #pkgs.vimPlugins.nvim-treesitter
-      #pkgs.vimPlugins.nvim-treesitter.withAllGrammars
-    ];
-    viAlias = true;
+    nix-direnv = {
+      enable = true;
+    };
   };
+
+  programs.command-not-found.enable = false;
 
   # editors battle royale
   programs.vim.enable = true;
-  programs.helix.enable = true;
-  programs.kakoune.enable = true;
+
+  programs.helix = {
+    enable = true;
+    settings = {
+      theme = "ayu_dark";
+      editor.color-modes = true;
+    };
+    languages = {
+      language = [
+        {
+          name = "nix";
+          language-servers = [
+            "nixd"
+            "nil"
+          ];
+          formatter.command = "nixfmt";
+        }
+
+        {
+          name = "python";
+          language-servers = [
+            "ruff"
+            "basedpyright"
+          ];
+        }
+
+        {
+          name = "typst";
+          language-servers = [
+            "tinymist"
+          ];
+        }
+      ];
+    };
+  };
 
   programs.git.enable = true;
   programs.go = {
