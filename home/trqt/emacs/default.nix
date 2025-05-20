@@ -47,22 +47,14 @@
   home.packages = with pkgs; [
     # c
     clang-tools
-    # rust
-    rust-analyzer
-    # haskell
-    haskell-language-server
+
     # Go
     gopls
+
     # python
     ruff
-    python312Packages.python-lsp-server
-    python312Packages.python-lsp-ruff
-
-    # Clojure
-    clojure-lsp
-
-    # Zig
-    zls
+    basedpyright
+    python313Packages.python-lsp-ruff
 
     # Typst
     tinymist

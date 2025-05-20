@@ -47,10 +47,13 @@
   (setq major-mode-remap-alist
         '((yaml-mode . yaml-ts-mode)
           (bash-mode . bash-ts-mode)
-          (js2-mode . js-ts-mode)
+          (js-mode . js-ts-mode)
+	  (js-jsx-mode . tsx-ts-mode)
+	  (js-jsx-mode . tsx-ts-mode)
           (typescript-mode . typescript-ts-mode)
           (json-mode . json-ts-mode)
           (css-mode . css-ts-mode)
+          (html-mode . html-ts-mode)
           (c-mode . c-ts-mode)
           (c++-mode . c++-ts-mode)
           (python-mode . python-ts-mode)))
@@ -243,6 +246,9 @@
          (haskell-mode . eglot-ensure)
          ;;(clojure-mode . eglot-ensure)
          (python-ts-mode . eglot-ensure)
+         (js-ts-mode . eglot-ensure)
+         (typescript-ts-mode . eglot-ensure)
+         (tsx-ts-mode . eglot-ensure)
          (java-mode . eglot-ensure)
          (c-ts-mode . eglot-ensure)
          (c++-ts-mode . eglot-ensure))
@@ -273,6 +279,10 @@
            ("C-c C-d" . #'helpful-at-point)
            ("C-h F" . #'helpful-function)
            ("C-h C" . #'helpful-command)))
+
+;; loads correct enviroment
+(use-package envrc
+  :hook (after-init . envrc-global-mode))
 
 ;; Which key, make the commands more accessible
 (use-package which-key
@@ -462,6 +472,8 @@
 
 (use-package rust-mode
   :defer t
+  :custom
+  (rust-mode-treesitter-derive t)
   :bind (:map rust-mode-map
 	      ("C-c C-r" . 'rust-run)
 	      ("C-c C-c" . 'rust-compile)
