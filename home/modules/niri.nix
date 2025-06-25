@@ -30,6 +30,16 @@ rec {
       defaultText = literalExpression "pkgs.niri";
       description = "niri package to use.";
     };
+    systemd = {
+      variables = mkOption {
+        type = types.listOf types.str;
+        default = [ ];
+        example = [ ];
+        description = ''
+          Dummy variable
+        '';
+      };
+    };
   };
 
   config = mkIf cfg.enable (mkMerge [
