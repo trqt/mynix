@@ -109,10 +109,8 @@
           "power-profiles-daemon"
           "temperature"
           "disk#root"
-          "disk#home"
-          "network#wlp59s0"
           "network#wl0"
-          "network#enp58s0u1u4"
+          "network#enp0s25"
         ];
         "sway/workspaces" = {
           all-outputs = false;
@@ -152,12 +150,6 @@
           path = "/";
           on-click = "";
         };
-        "disk#home" = {
-          interval = 30;
-          format = "{path}: {percentage_used}%";
-          path = "/home";
-          on-click = "";
-        };
         "network#wl0" = {
           interface = "w*";
           format = "{ifname}: {ipaddr}";
@@ -171,21 +163,8 @@
           max-length = 50;
           on-click = "";
         };
-        "network#wlp59s0" = {
-          interface = "wlp59s0";
-          format = "{ifname}: {ipaddr}";
-          format-wifi = "{essid} ({signalStrength}%)";
-          format-ethernet = "{ifname}";
-          format-disconnected = "";
-          tooltip-format = "{ifname}";
-          tooltip-format-wifi = "{essid} ({signalStrength}%)";
-          tooltip-format-ethernet = "{ifname}";
-          tooltip-format-disconnected = "Disconnected";
-          max-length = 50;
-          on-click = "";
-        };
-        "network#enp58s0u1u4" = {
-          interface = "enp58s0u1u4";
+        "network#enp0s25" = {
+          interface = "enp0s25";
           format = "{ifname}: {ipaddr} {bandwidthUpBits} up, {bandwidthDownBits} down";
           format-wifi = "{essid} ({signalStrength}%)";
           format-ethernet = "{ifname}: {ipaddr}";
