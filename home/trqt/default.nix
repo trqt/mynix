@@ -79,6 +79,7 @@
     enchant
     nuspell
     typst
+    difftastic
 
     doggo
     tealdeer
@@ -86,6 +87,7 @@
     libnotify
     newsraft
     tokei
+    mprocs
 
     wf-recorder
     ffmpeg
