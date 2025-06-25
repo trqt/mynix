@@ -35,6 +35,7 @@
   (frame-resize-pixelwise t) ;; resize by pixels
   (load-prefer-newer t) 
   (tab-always-indent 'complete) ;; indent or auto complete
+  (indent-tabs-mode nil) ;; use spaces
   (backup-by-copying t) ;; copy files, don't link
   (custom-file (expand-file-name "custom.el" user-emacs-directory)) ;; put auto-generated lisp in a separated file
 
@@ -304,13 +305,23 @@
 	which-key-separator " → " ))
 
 ;; Better undo(change it to undo-fu, vundo and undo-fu-session ?)
-(use-package undo-tree
+;; (use-package undo-tree
+;;   :defer t
+;;   :custom
+;;   (undo-tree-auto-save-history nil)
+
+;;   :hook
+;;   (after-init . global-undo-tree-mode))
+
+(use-package undo-fu-session
   :defer t
   :custom
-  (undo-tree-auto-save-history nil)
+  (undo-fu-session-incompatible-files '("/COMMIT_EDITMSG\\'" "/git-rebase-todo\\'")
+                                      :hook (after-init . undo-fu-session-global-mode)))
 
-  :hook
-  (after-init . global-undo-tree-mode))
+(use-package vundo
+  :defer t
+  :bind (("C-x u" . vundo)))
 
 ;; VI VI VI
 (use-package evil
@@ -319,7 +330,7 @@
   (evil-want-integration t)
   (evil-want-keybinding nil)
   (evil-want-C-u-scroll t)
-  (evil-undo-system 'undo-tree)
+  (evil-undo-system 'undo-redo)
   :init
   (evil-mode 1))
 
