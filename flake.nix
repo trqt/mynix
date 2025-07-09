@@ -22,12 +22,16 @@
     emacs-overlay.url = "github:nix-community/emacs-overlay";
     emacs-overlay.inputs.nixpkgs.follows = "nixpkgs";
 
+    lix-module.url = "https://git.lix.systems/lix-project/nixos-module/archive/release-2.93.tar.gz";
+    lix-module.inputs.nixpkgs.follows = "nixpkgs";
+
     hardware.url = "github:nixos/nixos-hardware";
   };
 
   outputs =
     {
       nixpkgs,
+      lix-module,
       home-manager,
       hardware,
       ...
@@ -41,6 +45,7 @@
           modules = [
             ./hosts/inhame
             hardware.nixosModules.lenovo-thinkpad-x230
+            lix-module.nixosModules.default
           ];
         };
       };
