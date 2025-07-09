@@ -1,6 +1,6 @@
 {
   inputs,
-#outputs,
+  #outputs,
   lib,
   config,
   pkgs,
@@ -8,7 +8,7 @@
 }:
 {
   imports = [
-     inputs.self.homeManagerModules.niri
+    inputs.self.homeManagerModules.niri
 
     ./gtk
     #./sway
@@ -40,25 +40,21 @@
   };
   programs.home-manager.enable = true;
 
-  programs.imv.enable = true;
-
-  programs.librewolf.enable = true;
-
-  programs.qutebrowser.enable = true;
-
   home.packages = with pkgs; [
     brave
     vesktop
-    palemoon-bin
     qbittorrent # -enhanced
     calibre
-    anki
     tor-browser
     ghidra
-    gimp
-    ghostty
+    gimp3
+    libreoffice-qt6
+    zotero
+    librewolf-wayland
+    qutebrowser
 
     libqalculate
+    imv
 
     grim
     slurp
@@ -88,6 +84,7 @@
     newsraft
     tokei
     mprocs
+    gdu
 
     wf-recorder
     ffmpeg
