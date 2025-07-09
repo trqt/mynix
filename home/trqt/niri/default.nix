@@ -110,7 +110,7 @@ in
 
     Service = {
       Type = "exec";
-      ExecStart = "${pkgs.swaybg}/bin/swaybg -i ${../bg.jpg} -m fill";
+      ExecStart = "${pkgs.swaybg}/bin/swaybg -i ${./bg.jpg} -m fill";
       Restart = "on-failure";
     };
 
@@ -142,4 +142,6 @@ in
     enable = true;
     forceXWayland = false;
   };
+
+  services.mako.enable = true;
 }

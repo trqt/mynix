@@ -11,7 +11,6 @@
     inputs.self.homeManagerModules.niri
 
     ./gtk
-    #./sway
     ./waybar
     ./niri
     ./foot
