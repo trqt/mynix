@@ -44,13 +44,33 @@
   programs.command-not-found.enable = false;
 
   # editors battle royale
-  programs.vim.enable = true;
+  programs.neovim = {
+    enable = true;
+    viAlias = true;
+    vimAlias = true;
+    extraLuaConfig = ''
+      vim.o.undofile      = true
+      vim.o.clipboard     = "unnamedplus"
+      vim.o.laststatus    = 0
+      vim.opt.expandtab   = true
+      vim.opt.shiftwidth  = 4
+      vim.opt.softtabstop = -1
+      vim.cmd("syntax off | colorscheme retrobox")
+      vim.keymap.set('n', '<space>y', function() vim.fn.setreg('+', vim.fn.expand('%:p')) end)
+      vim.keymap.set("n", "<space>c", function() vim.ui.input({}, function(c) if c and c~="" then 
+      vim.cmd("noswapfile vnew") vim.bo.buftype = "nofile" vim.bo.bufhidden = "wipe"
+      vim.api.nvim_buf_set_lines(0, 0, -1, false, vim.fn.systemlist(c)) end end) end)
+    '';
+  };
 
   programs.helix = {
     enable = true;
     settings = {
       theme = "ayu_dark";
-      editor.color-modes = true;
+      editor = {
+        color-modes = true;
+        soft-wrap.enable = true;
+      };
     };
     languages = {
       language = [
