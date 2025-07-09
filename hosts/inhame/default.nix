@@ -121,31 +121,6 @@
     enableCache = true;
     # add profiles and whatever
   };
-  programs.firejail = {
-    enable = true;
-    wrappedBinaries = {
-      mpv = {
-        executable = "${lib.getBin pkgs.mpv}/bin/mpv";
-        profile = "${pkgs.firejail}/etc/firejail/mpv.profile";
-      };
-      imv = {
-        executable = "${lib.getBin pkgs.imv}/bin/imv";
-        profile = "${pkgs.firejail}/etc/firejail/imv.profile";
-      };
-      zathura = {
-        executable = "${lib.getBin pkgs.zathura}/bin/zathura";
-        profile = "${pkgs.firejail}/etc/firejail/zathura.profile";
-      };
-      qutebrowser = {
-        executable = "${lib.getBin pkgs.qutebrowser}/bin/qutebrowser";
-        profile = "${pkgs.firejail}/etc/firejail/qutebrowser.profile";
-      };
-      palemoon-bin = {
-        executable = "${lib.getBin pkgs.palemoon-bin}/bin/palemoon";
-        profile = "${pkgs.firejail}/etc/firejail/palemoon.profile";
-      };
-    };
-  };
 
   virtualisation.containers.enable = true;
   virtualisation = {
