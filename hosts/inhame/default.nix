@@ -217,7 +217,14 @@
     };
   };
 
-  zramSwap.enable = true;
+  zramSwap = {
+    enable = true;
+    algorithm = "lz4";
+  };
+
+  boot.kernel.sysctl = {
+    "vm.swappiness" = 170;
+  };
 
   programs.light.enable = true;
   programs.dconf.enable = true;
