@@ -51,7 +51,9 @@
       enable = true;
       allowPing = false;
     };
-    dhcpcd.enable = false; # do not plays well with iwd
+    dhcpcd = {
+      allowInterfaces = [ "enp0s25" ]; # dont interfere with iwd
+    };
     wireless.iwd = {
       enable = true;
       settings = {
