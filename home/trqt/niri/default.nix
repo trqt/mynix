@@ -50,8 +50,6 @@ in
     enable = true;
     configFile = pkgs.replaceVars ./niri.kdl {
       swaync = "${pkgs.swaynotificationcenter}";
-      swaybg = "${pkgs.swaybg}";
-      copyq = "${pkgs.copyq}";
       cursorTheme = "${config.gtk.cursorTheme.name}";
       foot = "${pkgs.foot}";
       fuzzel = "${pkgs.fuzzel}";
@@ -60,9 +58,6 @@ in
       brightnessctl = "${pkgs.brightnessctl}";
       bemoji = "${pkgs.bemoji}";
       swayexitify = "${swayexitify}";
-            #wallpaper = ../wallpapers/jwst-Cassiopeia-A-NIRCam.png;
-            #swayr = "${pkgs.swayr}";
-      xwaylandSatellite = "${pkgs.xwayland-satellite}";
       niriswitch = "${niriswitch}";
       DEFAULT_AUDIO_SINK = null;
       DEFAULT_AUDIO_SOURCE = null;
@@ -103,5 +98,48 @@ in
       ignore-empty-password = true;
       show-failed-attempts = true;
     };
+  };
+
+  systemd.user.services.swaybg = {
+    Unit = {
+      Description = "Wayland Background";
+      After = [ "graphical-session.target" ];
+      PartOf = [ "graphical-session.target" ];
+      ConditionEnvironment = "WAYLAND_DISPLAY";
+    };
+
+    Service = {
+      Type = "exec";
+      ExecStart = "${pkgs.swaybg}/bin/swaybg -i ${../bg.jpg} -m fill";
+      Restart = "on-failure";
+    };
+
+    Install = {
+      WantedBy = [ "graphical-session.target" ];
+    };
+  };
+
+  systemd.user.services.xwayland-satellite = {
+    Unit = {
+      Description = "XWayland Satellite";
+      After = [ "graphical-session.target" ];
+      PartOf = [ "graphical-session.target" ];
+      ConditionEnvironment = "WAYLAND_DISPLAY";
+    };
+
+    Service = {
+      Type = "exec";
+      ExecStart = "${pkgs.xwayland-satellite}/bin/xwayland-satellite";
+      Restart = "on-failure";
+    };
+
+    Install = {
+      WantedBy = [ "graphical-session.target" ];
+    };
+  };
+
+  services.copyq = {
+    enable = true;
+    forceXWayland = false;
   };
 }

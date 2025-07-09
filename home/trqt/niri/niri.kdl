@@ -90,14 +90,6 @@ layout {
 	center-focused-column "never"
 }
 
-
-// TODO: Put wallpaper in nix store
-spawn-at-startup "@swaybg@/bin/swaybg" "-i" "/home/trqt/media/pics/bg.jpg" "-m" "fill"
-spawn-at-startup "@copyq@/bin/copyq"
-spawn-at-startup "@xwaylandSatellite@/bin/xwayland-satellite"
-spawn-at-startup "@foot@/bin/foot" "--server"
-
-
 environment {
 	// Set a variable like this:
 	// QT_QPA_PLATFORM "wayland"
