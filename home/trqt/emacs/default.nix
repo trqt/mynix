@@ -35,7 +35,6 @@
     startWithUserSession = "graphical";
     package = config.programs.emacs.package;
     client.enable = true;
-    defaultEditor = true;
     socketActivation.enable = false;
   };
 
