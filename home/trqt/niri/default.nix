@@ -59,6 +59,7 @@ in
       bemoji = "${pkgs.bemoji}";
       swayexitify = "${swayexitify}";
       niriswitch = "${niriswitch}";
+      copyq = "${pkgs.copyq}";
       DEFAULT_AUDIO_SINK = null;
       DEFAULT_AUDIO_SOURCE = null;
     };
