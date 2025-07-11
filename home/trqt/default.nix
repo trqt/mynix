@@ -16,6 +16,7 @@
     ./foot
     ./xdg
     ./cli
+    ./git
     ./mpv
     ./password-managers
     ./zathura

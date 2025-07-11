@@ -102,20 +102,6 @@
     };
   };
 
-  programs.git = {
-    enable = true;
-    difftastic.enable = true;
-    lfs.enable = true;
-
-    extraConfig = {
-      push = {
-        autoSetupRemote = true;
-        followTags = true;
-      };
-      init.defaultBranch = "master";
-    };
-  };
-
   programs.go = {
     enable = true;
     goPath = ".local/share/go";
