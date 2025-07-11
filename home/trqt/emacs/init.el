@@ -561,6 +561,8 @@
 (use-package telega
   :defer t
   :ensure nil
+  :hook
+  (telega-mode . company-mode)
   :config
   (setq telega-use-tracking-for '(or unmuted mention)
         telega-completing-read-function #'completing-read
@@ -568,6 +570,7 @@
         telega-chat-fill-column 75
         telega-server-libs-prefix "~/.nix-profile"
         telega-use-images t
+        telega-emoji-use-images nil
         telega-open-file-function 'org-open-file
         telega-chat-show-deleted-messages-for '(not saved-messages)))
 
