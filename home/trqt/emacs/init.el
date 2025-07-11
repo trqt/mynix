@@ -109,12 +109,12 @@
         no-littering-var-directory "~/.cache/emacs/var/"))
 
 ;; A package with a great selection of themes
-(use-package ef-themes
+(use-package doric-themes
+  :demand t
   :custom
-  (ef-themes-to-toggle '(ef-autumn ef-eagle))
-  (ef-themes-mixed-font t)
+  (doric-themes-to-toggle '(doric-earth doric-obsidian))
   :config
-  (ef-themes-select 'ef-eagle))
+  (doric-themes-select 'doric-earth))
 
 
 ;; Transparency
