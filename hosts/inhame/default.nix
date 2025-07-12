@@ -116,12 +116,6 @@
     }
   ];
 
-  security.apparmor = {
-    enable = true;
-    enableCache = true;
-    # add profiles and whatever
-  };
-
   virtualisation.containers.enable = true;
   virtualisation = {
     podman = {
