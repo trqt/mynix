@@ -111,9 +111,8 @@
 ;; A package with a great selection of themes
 (use-package doric-themes
   :demand t
-  :custom
-  (doric-themes-to-toggle '(doric-earth doric-obsidian))
   :config
+  (setq doric-themes-to-toggle '(doric-earth doric-obsidian))
   (doric-themes-select 'doric-earth))
 
 
